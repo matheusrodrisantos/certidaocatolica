@@ -9,6 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+
     public function up(): void
     {
         Schema::create('paroquias', function (Blueprint $table) {
@@ -19,16 +20,16 @@ return new class extends Migration
             $table->string('endereco');
             $table->string('numero');
 
-            $table->bigInteger('diocese_id')->unsigned();
-            $table->foreign('diocese_id')->references('id')->on('dioceses');
-
             $table->bigInteger('cidade_id')->unsigned();
             $table->foreign('cidade_id')->references('id')->on('cidades');
+
+
+            $table->bigInteger('diocese_id')->unsigned();
+            $table->foreign('diocese_id')->references('id')->on('dioceses');
 
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */
