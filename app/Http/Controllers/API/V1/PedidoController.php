@@ -10,7 +10,7 @@ use App\Traits\HttpResponses;
 
 
 use App\Http\Controllers\MailController;
-
+use App\Http\Resources\PedidoResource;
 use Exception;
 
 class PedidoController extends Controller
@@ -53,8 +53,15 @@ class PedidoController extends Controller
             $pedido->cidade_id=$pedidoRequest['cidade_id'];
             $pedido->paroquia_id=$pedidoRequest['paroquia_id'];
             
-            $pedido->save();
-            MailController::sendEmail($pedido->email,'Solicitacao feita',$pedido->finalidade);
+            $saved=$pedido->save();
+            
+            if($saved){
+                return $this->response( 
+                    'Solicitação feita com sucesso!',200,
+                    new PedidoResource($pedido->get()->last())
+                );
+                MailController::sendEmail($pedido->email,'Solicitacao feita',$pedido->finalidade);
+            }
 
         }catch(Exception $e){
 
