@@ -8,6 +8,9 @@ use App\Http\Requests\UpdatePedidoRequest;
 use App\Models\Pedido;
 use App\Traits\HttpResponses;
 
+
+use App\Http\Controllers\MailController;
+
 use Exception;
 
 class PedidoController extends Controller
@@ -50,7 +53,8 @@ class PedidoController extends Controller
             $pedido->cidade_id=$pedidoRequest['cidade_id'];
             $pedido->paroquia_id=$pedidoRequest['paroquia_id'];
             
-             $pedido->save();
+            $pedido->save();
+            MailController::sendEmail($pedido->email,'Solicitacao feita',$pedido->finalidade);
 
         }catch(Exception $e){
 
