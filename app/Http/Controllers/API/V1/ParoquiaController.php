@@ -1,19 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\V1;
 
 use App\Http\Requests\StoreParoquiaRequest;
 use App\Http\Requests\UpdateParoquiaRequest;
 use App\Models\Paroquia;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ParoquiaResource;
+use App\Traits\HttpResponses;
 
 class ParoquiaController extends Controller
 {
+    use HttpResponses;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return $this->response(
+            'List all paroquias',
+            200, 
+            new ParoquiaResource(Paroquia::all())
+        );
     }
 
     /**
