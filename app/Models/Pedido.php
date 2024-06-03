@@ -18,7 +18,6 @@ class pedido extends Model
     {
         return Attribute::make(
             get: fn ($value) => Carbon::parse($value)->format('d/m/Y'),
-            set: fn ($value) => Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d'),
         );
     }
 
@@ -26,7 +25,6 @@ class pedido extends Model
     {
         return Attribute::make(
             get: fn ($value) => Carbon::parse($value)->format('d/m/Y'),
-            set: fn ($value) => Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d'),
         );
     }
 }
