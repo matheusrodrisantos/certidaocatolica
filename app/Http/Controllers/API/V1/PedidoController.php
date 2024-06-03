@@ -56,11 +56,11 @@ class PedidoController extends Controller
             $saved=$pedido->save();
             
             if($saved){
+                MailController::sendEmail($pedido->email,'Solicitacao feita',$pedido->finalidade);
                 return $this->response( 
                     'Solicitação feita com sucesso!',200,
                     new PedidoResource($pedido->get()->last())
                 );
-                MailController::sendEmail($pedido->email,'Solicitacao feita',$pedido->finalidade);
             }
 
         }catch(Exception $e){
