@@ -6,14 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+
 use App\Traits\HttpResponses;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+
     use HttpResponses;
+
 
     public function csrfCookie(Request $request)
     {
@@ -30,10 +34,12 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
 
+
             return $this->error(
                 'Data invalid',422,$validator->errors()
             );
             
+
         }
 
         $user = User::create([
@@ -51,13 +57,16 @@ class AuthController extends Controller
     }
 
 
+
     public function login(Request $request)
     {
         
+
         $validator= Validator::make($request->all(),[
             'email'     => 'required|string|max:255',
             'password'  => 'required|string'
         ]);
+
 
         if ($validator->fails()) 
         {
@@ -74,10 +83,12 @@ class AuthController extends Controller
             return $this->error(
                 'Usuario nao encontrado',422
             );
+
         }
 
         $user   = User::where('email', $request->email)->firstOrFail();
         $token  = $user->createToken('auth_token',['*'],now()->addMinute())->plainTextToken;
+
 
         return $this->response(
             'Login sucess', 200,
@@ -85,6 +96,7 @@ class AuthController extends Controller
                    'token_type'    => 'Bearer'
                   ]
             );
+
     }
 
     public function logout(){
