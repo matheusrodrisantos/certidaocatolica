@@ -87,7 +87,7 @@ class AuthController extends Controller
         }
 
         $user   = User::where('email', $request->email)->firstOrFail();
-        $token  = $user->createToken('auth_token',['*'],now()->addMinute())->plainTextToken;
+        $token  = $user->createToken('auth_token',['*'],now()->addWeek())->plainTextToken;
 
 
         return $this->response(

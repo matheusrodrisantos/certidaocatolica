@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatepedidoRequest extends FormRequest
+class UpdatePedidoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,16 @@ class UpdatepedidoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nome_completo'=>'required',
+            'nome_mae'=>'required',
+            'email'=>'required',
+            'data_nascimento'=>'required|date_format:Y-m-d',
+            'data_batismo'=>'nullable|date_format:Y-m-d',
+            'finalidade'=>'required',
+            'status'=>'required|in:aprovado,recusado,espera,pagamento pendente',
+            'diocese_id'=>'nullable|numeric',
+            'cidade_id'=>'nullable|numeric',
+            'paroquia_id'=>'nullable|numeric'
         ];
     }
 }

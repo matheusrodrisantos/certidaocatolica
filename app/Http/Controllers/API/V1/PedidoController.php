@@ -26,14 +26,6 @@ class PedidoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StorePedidoRequest $request)
@@ -72,27 +64,36 @@ class PedidoController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Pedido $Pedido)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pedido $Pedido)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatepedidoRequest $request, Pedido $Pedido)
+    public function update(UpdatePedidoRequest $request, Pedido $pedido)
     {
-        //
+        $pedidoRequest=$request->validated();
+        try{
+            
+            $updated=$pedido->update([
+                'nome_completo'=>$pedidoRequest['nome_completo'],
+                'nome_mae'=>$pedidoRequest['nome_mae'],
+                'email'=>$pedidoRequest['email'],
+                'data_nascimento'=>$pedidoRequest['data_nascimento'],
+                'data_batismo'=>$pedidoRequest['data_batismo'],
+                'finalidade'=>$pedidoRequest['finalidade'],
+                'status'=>$pedidoRequest['status'],
+                'diocese_id'=>$pedidoRequest['diocese_id']?$pedidoRequest['diocese_id']:null,
+                'cidade_id'=>$pedidoRequest['cidade_id']?$pedidoRequest['cidade_id']:null,
+                'paroquia_id'=>$pedidoRequest['paroquia_id']?$pedidoRequest['paroquia_id']:null
+            ]);
+        
+
+            if($updated){
+                return $this->response(
+                    'Pedido atualizado com sucesso!',200
+                );
+            }
+        }catch(Exception $e){
+            return $this->error($e->getMessage(),400);
+        }
+
     }
 
     /**

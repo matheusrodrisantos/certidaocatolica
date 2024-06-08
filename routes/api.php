@@ -11,6 +11,7 @@ Route::prefix('v1')->group(function()
     
     Route::prefix('pedido')->group(function(){
         Route::post('/store',[PedidoController::class,'store']);
+        Route::put('/update/{pedido}',[PedidoController::class,'update'])->middleware('auth:sanctum');
     });
 
   
@@ -21,4 +22,6 @@ Route::prefix('v1')->group(function()
     Route::prefix('paroquia')->group(function(){
         Route::get('/list-all',[ParoquiaController::class,'index'])->middleware('auth:sanctum');
     });
+
+
 });
