@@ -119,25 +119,25 @@
                         <p>Você fez a solicitação pelo nosso site</p>
                     </div>
                 </div>
-                <div class="timeline-item current">
+                <div class="timeline-item confirmed">
                     <div class="timeline-content">
                         <h2>Análise</h2>
                         <p>O secretário paroquial está analisando.</p>
                     </div>
                 </div>
-                <div class="timeline-item">
+                <div class="timeline-item confirmed">
                     <div class="timeline-content">
                         <h2>Pagamento</h2>
                         <p>Secretário enviará um link para pagamento</p>
                     </div>
                 </div>
-                <div class="timeline-item">
+                <div class="timeline-item confirmed">
                     <div class="timeline-content">
                         <h2>Aprovado</h2>
                         <p>O pagamento foi recebido</p>
                     </div>
                 </div>
-                <div class="timeline-item">
+                <div class="timeline-item confirmed">
                     <div class="timeline-content">
                         <h2>Entregue</h2>
                         <p>A solicitação foi entregue.</p>
