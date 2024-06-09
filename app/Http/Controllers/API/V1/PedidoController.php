@@ -22,7 +22,7 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        //
+        return PedidoResource::collection(Pedido::all());   
     }
 
     /**
@@ -48,7 +48,7 @@ class PedidoController extends Controller
             $saved=$pedido->save();
             
             if($saved){
-                MailController::sendEmail($pedido->email,'Solicitacao feita',$pedido->finalidade);
+                MailController::sendEmail($pedido->email,'Solicitacao feita',$pedido->finalidade,$pedido->nome_completo );
                 return $this->response( 
                     'Solicitação feita com sucesso!',200,
                     new PedidoResource($pedido->get()->last())
@@ -71,6 +71,7 @@ class PedidoController extends Controller
         $pedidoRequest=$request->validated();
         try{
             
+            $oldStatus=$pedido->get()->last()->status;
             $updated=$pedido->update([
                 'nome_completo'=>$pedidoRequest['nome_completo'],
                 'nome_mae'=>$pedidoRequest['nome_mae'],
@@ -84,8 +85,15 @@ class PedidoController extends Controller
                 'paroquia_id'=>$pedidoRequest['paroquia_id']?$pedidoRequest['paroquia_id']:null
             ]);
         
-
+            
             if($updated){
+                $newStatus=$pedido->get()->last()->status;    
+
+                if($oldStatus!=$newStatus and $newStatus=="aprovado"){
+
+                    MailController::sendEmail($pedido->email,'Solicitacao aprovada',$pedido->finalidade,$pedido->nome);
+                    return json_encode($updated);
+                }
                 return $this->response(
                     'Pedido atualizado com sucesso!',200
                 );

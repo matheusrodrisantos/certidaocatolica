@@ -9,11 +9,12 @@ use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
 {
-    public static function sendEmail($destinatation,$body,$title)
+    public static function sendEmail($destinatation,$body,$title, $nome)
     {
         $details=[
             'title'=>$title,
-            'body'=>$body
+            'body'=>$body,
+            'nome'=>$nome
         ];
 
         Mail::to($destinatation)->send(new ConfirmationMail($details));
