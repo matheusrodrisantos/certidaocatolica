@@ -48,7 +48,11 @@ class PedidoController extends Controller
             $saved=$pedido->save();
             
             if($saved){
-                MailController::sendEmail($pedido->email,'Solicitacao feita',$pedido->finalidade,$pedido->nome_completo );
+                MailController::sendEmail($pedido->email,
+                    'Solicitacao feita',
+                    $pedido->finalidade,
+                    $pedido->nome_completo, "confirmation"
+                );
                 return $this->response( 
                     'Solicitação feita com sucesso!',200,
                     new PedidoResource($pedido->get()->last())
@@ -91,7 +95,24 @@ class PedidoController extends Controller
 
                 if($oldStatus!=$newStatus and $newStatus=="aprovado"){
 
-                    MailController::sendEmail($pedido->email,'Solicitacao aprovada',$pedido->finalidade,$pedido->nome);
+                    MailController::sendEmail(
+                        $pedido->email,
+                        'Solicitacao aprovada',
+                        $pedido->finalidade,
+                        $pedido->nome,
+                        "approved"
+                    );
+                    return json_encode($updated);
+                }
+
+                if($oldStatus!=$newStatus and $newStatus=="pagamento pendente"){
+
+                    MailController::sendEmail($pedido->email,
+                    'Pagamento pendente',
+                    $pedido->finalidade,
+                    $pedido->nome,
+                    "pending"
+                    );
                     return json_encode($updated);
                 }
                 return $this->response(
@@ -101,7 +122,6 @@ class PedidoController extends Controller
         }catch(Exception $e){
             return $this->error($e->getMessage(),400);
         }
-
     }
 
     /**

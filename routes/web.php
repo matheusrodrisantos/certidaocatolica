@@ -1,7 +1,6 @@
 <?php
 
+use App\Http\Controllers\WebHookController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/webhook', [WebHookController::class,'index']);
