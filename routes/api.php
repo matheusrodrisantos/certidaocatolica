@@ -12,7 +12,9 @@ Route::prefix('v1')->group(function()
     Route::prefix('pedido')->group(function(){
         Route::post('/store',[PedidoController::class,'store']);
         Route::put('/update/{pedido}',[PedidoController::class,'update'])->middleware('auth:sanctum');
+        Route::post('/upload/{pedido}',[PedidoController::class,'upload']);
         Route::get('/list-all',[PedidoController::class,'index'])->middleware('auth:sanctum');
+        Route::get('/list/{paroquia}',[PedidoController::class,'show']);
     });
 
   

@@ -8,19 +8,22 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Attachment;
 
 class ApprovedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $details;
+    public $file;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($details)
+    public function __construct($details,$file='')
     {
         $this->details = $details;
+        $this->file=$file;
     }
 
     /**
@@ -50,6 +53,14 @@ class ApprovedMail extends Mailable
      */
     public function attachments(): array
     {
+        if(!empty($this->file)){
+            return [
+                Attachment::fromStorage($this->file)
+                ->as('certidao.pdf'),
+            ];
+        }
+
         return [];
+
     }
 }

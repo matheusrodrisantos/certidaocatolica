@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
 {
-    public static function sendEmail($destinatation,$body,$title, $nome, $type)
+    public static function sendEmail($destinatation,$body,$title, $nome, $type,$file='')
     {
         $details=[
             'title'=>$title,
@@ -24,8 +24,15 @@ class MailController extends Controller
                 Mail::to($destinatation)->send(new ConfirmationMail($details));
                 break;
             case "approved":
-                Mail::to($destinatation)->send(new ApprovedMail($details));
+                if(!empty($file)){
+                    Mail::to($destinatation)->send(new ApprovedMail($details,$file));    
+                }else{
+                    Mail::to($destinatation)->send(new ApprovedMail($details));
+                }
                 break;
+            case "file":
+                    Mail::to($destinatation)->send(new ApprovedMail($details));
+                    break;
             case "pending":
                 Mail::to($destinatation)->send(new PendigMail($details));
                 break;

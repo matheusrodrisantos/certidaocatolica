@@ -11,6 +11,8 @@ use App\Traits\HttpResponses;
 
 use App\Http\Controllers\MailController;
 use App\Http\Resources\PedidoResource;
+
+use Illuminate\Http\Request;
 use Exception;
 
 class PedidoController extends Controller
@@ -25,6 +27,15 @@ class PedidoController extends Controller
         return PedidoResource::collection(Pedido::all());   
     }
 
+
+    public function show($paroquia_id)
+    {
+        $pedidos = PedidoResource::collection(
+            Pedido::where('paroquia_id','=',$paroquia_id)->get()
+        );
+        
+        return $pedidos; 
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -66,7 +77,6 @@ class PedidoController extends Controller
         
         }
     }
-
     /**
      * Update the specified resource in storage.
      */
@@ -130,5 +140,36 @@ class PedidoController extends Controller
     public function destroy(Pedido $Pedido)
     {
         //
+    }
+
+    public function upload(Request $request,$id){
+     
+        $request->validate([
+            'file' => 'required|file|mimes:pdf,doc,docx,jpg,png'
+        ]);
+        if($request->file('file')->isValid()){
+
+            $path = $request->file('file')->store('uploads');
+
+            
+            
+            $pedido = new PedidoResource(
+                Pedido::where('id',$id)->first()
+            );
+                
+            MailController::sendEmail($pedido->email,
+            'Solicitacao aprovada',
+            $pedido->finalidade,
+            $pedido->nome_completo, 
+            "approved",
+            $path
+            );
+            return $this->response( 
+            'Solicitação feita com sucesso!',200,
+            new PedidoResource($pedido->get()->last())
+            );
+        }
+
+
     }
 }

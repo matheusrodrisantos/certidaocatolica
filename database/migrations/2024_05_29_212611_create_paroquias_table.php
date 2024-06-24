@@ -20,11 +20,11 @@ return new class extends Migration
             $table->string('endereco');
             $table->string('numero');
 
-            $table->bigInteger('cidade_id')->unsigned();
+            $table->bigInteger('cidade_id')->unsigned()->nullable();
             $table->foreign('cidade_id')->references('id')->on('cidades');
 
 
-            $table->bigInteger('diocese_id')->unsigned();
+            $table->bigInteger('diocese_id')->unsigned()->nullable();
             $table->foreign('diocese_id')->references('id')->on('dioceses');
 
             $table->timestamps();

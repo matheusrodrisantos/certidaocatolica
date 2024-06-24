@@ -93,7 +93,8 @@ class AuthController extends Controller
         return $this->response(
             'Login sucess', 200,
             ['access_token'  => $token,
-                   'token_type'    => 'Bearer'
+                   'token_type'    => 'Bearer',
+                   'paroquia_id'=>$user->paroquia_id
                   ]
             );
 
