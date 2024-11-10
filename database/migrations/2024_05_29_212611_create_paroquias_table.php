@@ -20,6 +20,10 @@ return new class extends Migration
             $table->string('endereco');
             $table->string('numero');
 
+            $table->string('bairro');
+            $table->string('email');
+            $table->string('telefone');
+
             $table->bigInteger('cidade_id')->unsigned()->nullable();
             $table->foreign('cidade_id')->references('id')->on('cidades');
 

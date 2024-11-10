@@ -26,19 +26,7 @@ class pedido extends Model
         'paroquia_id'
     ];
 
-    protected function dataNascimento():Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => Carbon::parse($value)->format('d/m/Y'),
-        );
-    }
-
-    protected function dataBatismo():Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => Carbon::parse($value)->format('d/m/Y'),
-        );
-    }
+    
 }
 
 
