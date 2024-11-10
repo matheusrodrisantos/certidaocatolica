@@ -154,7 +154,7 @@ class PedidoController extends Controller
             
             
             $pedido = new PedidoResource(
-                Pedido::where('id',$id)->first()
+                Pedido::find($id)
             );
                 
             MailController::sendEmail($pedido->email,
@@ -166,7 +166,7 @@ class PedidoController extends Controller
             );
             return $this->response( 
             'Solicitação feita com sucesso!',200,
-            new PedidoResource($pedido->get()->last())
+            new PedidoResource($pedido)
             );
         }
 

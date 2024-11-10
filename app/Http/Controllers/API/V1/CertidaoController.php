@@ -20,6 +20,18 @@ class CertidaoController extends Controller
         return CertidaoResource::collection(Certidao::with('paroquia')->get());
     }
 
+    
+    /**
+     * List all certidoes by paroquiaId
+     */
+    public function listByParoquiaId($paroquiaId)  
+    {
+        
+        return CertidaoResource::collection(
+            Certidao::with('paroquia')
+            ->where('paroquia_id',$paroquiaId)->get()
+        );
+    }
     /**
      * Store a newly created resource in storage.
      */
