@@ -23,8 +23,8 @@ class StoreCertidaoRequest extends FormRequest
     {
         return [
             'data_batismo'=>'required',
-            'celebrante'=>'required|email',
-            'batizando'=>'required|email',
+            'celebrante'=>'required',
+            'batizando'=>'required',
             'data_nascimento'=>'required',
             'nome_mae'=>'required',
             'nome_pai'=>'required',

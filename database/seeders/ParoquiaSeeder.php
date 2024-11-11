@@ -21,13 +21,20 @@ class ParoquiaSeeder extends Seeder
                     'id'=>'1',
                     'nome'=>'PARÓQUIA N. SRA. DO ROSÁRIO',
                     'cep'=>'12523520',
+                    'bairro'=>'',
+                    'email'=>'',
+                    'telefone'=>'',
                     'endereco'=>'Rua Niterói, 350, Jardim Vista Alegre, Guaratinguetá SP',
                     'numero'=>'350'
                 ],
                 [
                     'id'=>'2',
                     'nome'=>'PARÓQUIA Nossa Senhora das Dores',
+                    'bairro'=>'',
                     'cep'=>'39482000',
+                    'bairro'=>'',
+                    'email'=>'',
+                    'telefone'=>'',
                     'endereco'=>'Praça Dom Daniel, 112, Centro, Januária – MG',
                     'numero'=>'350'
                 ]
